@@ -1,5 +1,8 @@
 const express = require('express');
+const { getAllProducts, getCategories, getProductsByCategory } = require('../controllers/woo');
 const router = express.Router();
+
+
 
 router.get('/test-endpoint', async (req, res) => {
     try {
@@ -9,6 +12,40 @@ router.get('/test-endpoint', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+router.get('/woo-get-categories', async (req, res) => {
+    try {
+        getCategories();
+        res.json({ message: 'Categories received' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+
+});
+
+
+router.get('/woo-get-prod-data', async (req, res) => {
+    try {
+        getAllProducts();
+        res.json({ message: 'Request sent'})
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+router.get('/woo-get-prod-by-cat', async (req, res) => {
+    try {
+        getProductsByCategory(158);
+        res.json({ message: 'Request sent'})
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+})
 
 router.post('/inventory-update', async (req, res) => {
     try {
